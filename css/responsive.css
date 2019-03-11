@@ -1566,9 +1566,9 @@
 
 	.swiper_wrapper .slider-caption p { font-size: 1rem; }
 	
-	.video-wrap {
-	    width: 600px !important;
-    	left: -100px !important;
+	.video-placeholder {
+	    width: 150% !important;
+    	left: -295px !important;
 	}
 
 	#header.transparent-header.floating-header .container {

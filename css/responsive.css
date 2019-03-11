@@ -1567,7 +1567,7 @@
 	.swiper_wrapper .slider-caption p { font-size: 1rem; }
 	
 	.video-placeholder {
-	    width: 150% !important;
+	    width: 576px !important;
     	left: -295px !important;
 	}
 

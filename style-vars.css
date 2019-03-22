@@ -5,7 +5,7 @@
 	Description: The Multi-Purpose Template
 	Author: SemiColonWeb
 	Author URI: http://themeforest.net/user/semicolonweb
-	Version: 5.4
+	Version: 5.7
 
 -----------------------------------------------------------------------------------*/
 
@@ -12778,13 +12778,13 @@ body:not(.device-touch) .tagcloud a {
 /* Widget - Quick Contact Form
 -----------------------------------------------------------------*/
 
-.quick-contact-widget .form-control,
-.quick-contact-widget .input-group,
-.quick-contact-widget .sm-form-control { margin-bottom: 10px; }
+.quick-contact-widget.form-widget .form-control,
+.quick-contact-widget.form-widget .input-group,
+.quick-contact-widget.form-widget .sm-form-control { margin-bottom: 10px; }
 
-.quick-contact-widget .input-group .form-control { margin-bottom: 0; }
+.quick-contact-widget.form-widget .input-group .form-control { margin-bottom: 0; }
 
-.quick-contact-widget form,
+.quick-contact-widget.form-widget form,
 #template-contactform { position: relative; }
 
 
@@ -13147,6 +13147,7 @@ body:not(.no-transition) #wrapper,
 	animation-fill-mode: both;
 }
 
+.page-transition-wrap,
 .css3-spinner {
 	position: fixed;
 	width: 100%;
@@ -13159,6 +13160,12 @@ body:not(.no-transition) #wrapper,
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 	-webkit-perspective: 1000;
+}
+
+.css3-spinner {
+	position: absolute;
+	z-index: auto;
+	background-color: transparent;
 }
 
 .css3-spinner > div {

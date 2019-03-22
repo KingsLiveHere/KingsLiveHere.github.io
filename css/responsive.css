@@ -1565,11 +1565,6 @@
 	.swiper_wrapper .slider-caption h2 { font-size: 1.75rem; }
 
 	.swiper_wrapper .slider-caption p { font-size: 1rem; }
-	
-	.video-wrap .video-placeholder {
-	    width: 710px !important;
-    	left: -295px !important;
-	}
 
 	#header.transparent-header.floating-header .container {
 		width: 310px;

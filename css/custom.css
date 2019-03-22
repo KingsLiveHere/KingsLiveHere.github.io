@@ -10,8 +10,16 @@ MY CSS
 -----------------------------------------------------------------*/
 
 .bgcolor {
-background-color: rgb(229, 227, 223) !important;
+background-color: rgb(229, 227, 223);
 padding-top: 100px;
 padding-bottom: 100px;
 }
 
+
+
+@media (max-width: 575.98px) {
+.video-wrap .video-placeholder {
+	    width: 710px;
+    	left: -295px;
+	}
+}

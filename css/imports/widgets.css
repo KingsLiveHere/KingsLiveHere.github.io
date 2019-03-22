@@ -220,13 +220,13 @@ body:not(.device-touch) .tagcloud a {
 /* Widget - Quick Contact Form
 -----------------------------------------------------------------*/
 
-.quick-contact-widget .form-control,
-.quick-contact-widget .input-group,
-.quick-contact-widget .sm-form-control { margin-bottom: 10px; }
+.quick-contact-widget.form-widget .form-control,
+.quick-contact-widget.form-widget .input-group,
+.quick-contact-widget.form-widget .sm-form-control { margin-bottom: 10px; }
 
-.quick-contact-widget .input-group .form-control { margin-bottom: 0; }
+.quick-contact-widget.form-widget .input-group .form-control { margin-bottom: 0; }
 
-.quick-contact-widget form,
+.quick-contact-widget.form-widget form,
 #template-contactform { position: relative; }
 
 

@@ -19,7 +19,7 @@ body.dark,
 .dark .shop-quick-view-ajax,
 .dark .portfolio-ajax-modal,
 .dark .modal-content,
-.dark .css3-spinner,
+.dark .page-transition-wrap,
 body.dark #side-panel,
 body #side-panel.dark { background-color: #383838; }
 
@@ -1629,6 +1629,8 @@ body #side-panel.dark #side-panel-trigger-close a {
 		border-bottom-color: rgba(255,255,255,0.1);
 	}
 
+	body:not(.primary-menu-open) #header.dark.semi-transparent.transparent-header-responsive { background-color: rgba(0,0,0,0.6); }
+
 	.dark #primary-menu.mobile-menu-off-canvas:not(.not-dark) > ul,
 	.dark #primary-menu.mobile-menu-off-canvas:not(.not-dark) > div > ul,
 	#primary-menu.mobile-menu-off-canvas.dark > ul,
@@ -1685,7 +1687,3 @@ body #side-panel.dark #side-panel-trigger-close a {
 
 }
 
-
-.slider-caption .slider-caption-center {
-padding-top: 30px !important;
-}

@@ -1552,10 +1552,10 @@
 
 	.landing-video {
 		position: relative;
-		top: 12px;
-		width: 333px;
-		height: 187px;
-		margin: 19px 0 0 53px;
+		top: 14px;
+		width: 76%;
+		height: auto;
+		margin: 19px auto 0;
 	}
 
 }
@@ -1713,14 +1713,6 @@
 
 	.error404,
 	.error404-wrap .error404 { font-size: 120px; }
-
-	.landing-video {
-		position: relative;
-		top: 9px;
-		width: 212px;
-		height: 119px;
-		margin: 19px 0 0 34px;
-	}
 
 	.landing-form-overlay { margin-left: -155px; }
 

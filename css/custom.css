@@ -15,12 +15,6 @@ padding-top: 100px;
 padding-bottom: 100px;
 }
 
-
-
-/*  @media (max-width: 575.98px) {
-.video-wrap .video-placeholder {
-	    width: 710px;
-    	left: -295px;
-	}
+.dark .slider-caption, .dark .slider-caption h2 {
+padding-top: 30px !important;
 }
-*/

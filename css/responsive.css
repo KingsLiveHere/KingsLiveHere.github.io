@@ -1778,3 +1778,13 @@ only screen and (                min-resolution: 2dppx) and (max-width: 991.98px
 	#logo a.retina-logo { display: inline-block; }
 }
 
+
+
+
+/* @media (max-width: 580px) {
+.video-wrap .video-overlay,
+.video-wrap .video-placeholder {
+background: none !important;
+	}
+}
+*/

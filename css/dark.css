@@ -1685,3 +1685,7 @@ body #side-panel.dark #side-panel-trigger-close a {
 
 }
 
+
+.slider-caption .slider-caption-center {
+padding-top: 30px !important;
+}

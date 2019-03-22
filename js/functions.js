@@ -3616,7 +3616,7 @@ var SEMICOLON = SEMICOLON || {};
 				SEMICOLON.header.topsocial();
 				SEMICOLON.header.fullWidthMenu();
 				SEMICOLON.header.overlayMenu();
-				SEMICOLON.initialize.fullScreen();
+				//SEMICOLON.initialize.fullScreen();
 				SEMICOLON.initialize.dataResponsiveHeights();
 				SEMICOLON.initialize.maxHeight();
 				SEMICOLON.initialize.verticalMiddle();

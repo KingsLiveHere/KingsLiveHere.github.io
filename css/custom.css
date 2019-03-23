@@ -9,14 +9,34 @@
 MY CSS
 -----------------------------------------------------------------*/
 
+#header.full-header #primary-menu > ul {
+	border-right: 0px;
+}
+#header.full-header #logo {
+	border-right: 0px;
+}
+
+#header.transparent-header.full-header #header-wrap { border-bottom: 0px; }
+
+#header.transparent-header + #slider {
+        top: -100px;
+        margin-bottom: -300px;
+    }
+}
+
 .bgcolor {
 background-color: rgb(229, 227, 223) !important;
 padding-top: 100px;
 padding-bottom: 100px;
 }
 
-.dark .slider-caption, .dark .slider-caption h2 {
+/*.dark .slider-caption, .dark .slider-caption h2 {
 padding-top: 30px !important;
+}*/
+
+.not-dark .slider-caption, .not-dark .slider-caption h2 {
+    color: #EEE;
+    text-shadow: -2px 2px 5px #000;
 }
 
 .video-placeholder {
@@ -37,10 +57,16 @@ only screen and (                min-resolution: 2dppx) {
 	#logo a.retina-logo { 
 		display: block;
 		width: 270px;
-		padding: 15px;	
+		padding: 13px;	
 	}
 
 	#logo img {
 	Height: 75px;
 	}
 }
+
+
+
+.dark #copyrights {
+	background-color: rgba(0,0,0,0);
+	}

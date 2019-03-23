@@ -25,3 +25,22 @@ padding-top: 30px !important;
     background-position: center center;
     background-size: cover;
 }
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+
+	#logo a.retina-logo { 
+		display: block;
+		width: 270px;
+		padding: 15px;	
+	}
+
+	#logo img {
+	Height: 75px;
+	}
+}

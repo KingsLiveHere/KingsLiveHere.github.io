@@ -275,37 +275,6 @@ var SEMICOLON = SEMICOLON || {};
 			}
 		},
 
-		maxHeight: function(){
-			if( $commonHeightEl.length > 0 ) {
-				if( $commonHeightEl.hasClass('customjs') ) { return true; }
-				$commonHeightEl.each( function(){
-					var element = $(this);
-					if( element.find('.common-height').length > 0 ) {
-						SEMICOLON.initialize.commonHeight( element.find('.common-height:not(.customjs)') );
-					}
-
-					SEMICOLON.initialize.commonHeight( element );
-				});
-			}
-		},
-
-		commonHeight: function( element ){
-			var maxHeight = 0;
-			element.children('[class*=col-]').each( function(){
-				var elementChild = $(this).children();
-				if( elementChild.hasClass('max-height') ){
-					maxHeight = elementChild.outerHeight();
-				} else {
-					if (elementChild.outerHeight() > maxHeight)
-					maxHeight = elementChild.outerHeight();
-				}
-			});
-
-			element.children('[class*=col-]').each(function() {
-				$(this).height(maxHeight);
-			});
-		},
-
 		testimonialsGrid: function(){
 			if( $testimonialsGridEl.length > 0 ) {
 				if( $body.hasClass('device-md') || $body.hasClass('device-lg') || $body.hasClass('device-xl') ) {
@@ -487,7 +456,7 @@ var SEMICOLON = SEMICOLON || {};
 							items: { src: elementTarget },
 							type: 'inline',
 							mainClass: 'mfp-no-margins mfp-fade',
-							closeBtnInside: true,
+							closeBtnInside: false,
 							fixedContentPos: true,
 							removalDelay: 500,
 							callbacks: {
@@ -580,7 +549,10 @@ var SEMICOLON = SEMICOLON || {};
 				loaderTimeOut = $body.attr('data-loader-timeout'),
 				loaderStyle = $body.attr('data-loader'),
 				loaderColor = $body.attr('data-loader-color'),
-				loaderStyleHtml = $body.attr('data-loader-html'),
+				loaderHtml = $body.attr('data-loader-html'),
+				loaderStyleHtml = '',
+				loaderBefore = '<div class="css3-spinner">',
+				loaderAfter = '</div>',
 				loaderBgStyle = '',
 				loaderBorderStyle = '',
 				loaderBgClass = '',
@@ -592,7 +564,7 @@ var SEMICOLON = SEMICOLON || {};
 			if( !animationOut ) { animationOut = 'fadeOut'; }
 			if( !durationIn ) { durationIn = 1500; }
 			if( !durationOut ) { durationOut = 800; }
-			if( !loaderStyleHtml ) { loaderStyleHtml = '<div class="css3-spinner-bounce1"></div><div class="css3-spinner-bounce2"></div><div class="css3-spinner-bounce3"></div>'; }
+			if( !loaderHtml ) { loaderStyleHtml = '<div class="css3-spinner-bounce1"></div><div class="css3-spinner-bounce2"></div><div class="css3-spinner-bounce3"></div>'; }
 
 			if( !loaderTimeOut ) {
 				timeOutActive = false;
@@ -643,6 +615,10 @@ var SEMICOLON = SEMICOLON || {};
 				loaderStyleHtml = '<div class="css3-spinner-scale-ripple"><div'+ loaderBorderClass2 + loaderBorderStyle +'></div><div'+ loaderBorderClass2 + loaderBorderStyle +'></div><div'+ loaderBorderClass2 + loaderBorderStyle +'></div></div>';
 			}
 
+			if( !loaderHtml ) {
+				loaderHtml = loaderBefore + loaderStyleHtml + loaderAfter;
+			}
+
 			$wrapper.css({ 'opacity': 1 });
 
 			$wrapper.animsition({
@@ -650,11 +626,11 @@ var SEMICOLON = SEMICOLON || {};
 				outClass: animationOut,
 				inDuration: Number(durationIn),
 				outDuration: Number(durationOut),
-				linkElement: '#primary-menu:not(.on-click) ul li a:not([target="_blank"]):not([href*="#"]):not([data-lightbox]):not([href^="mailto"]):not([href^="tel"]):not([href^="sms"]):not([href^="call"])',
+				linkElement: 'body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu:not(.on-click) ul li a:not([target="_blank"]):not([href*="#"]):not([data-lightbox]):not([href^="mailto"]):not([href^="tel"]):not([href^="sms"]):not([href^="call"])',
 				loading: true,
 				loadingParentElement: 'body',
-				loadingClass: 'css3-spinner',
-				loadingInner: loaderStyleHtml,
+				loadingClass: 'page-transition-wrap',
+				loadingInner: loaderHtml,
 				timeout: timeOutActive,
 				timeoutCountdown: loaderTimeOut,
 				onLoadEvent: true,
@@ -663,6 +639,7 @@ var SEMICOLON = SEMICOLON || {};
 				overlayClass: 'animsition-overlay-slide',
 				overlayParentElement: 'body'
 			});
+
 		},
 
 		lazyLoad: function() {
@@ -1011,41 +988,41 @@ var SEMICOLON = SEMICOLON || {};
 				$('#primary-menu ul ul, #primary-menu ul .mega-menu-content').css('display', 'block');
 				SEMICOLON.header.menuInvert();
 				$('#primary-menu ul ul, #primary-menu ul .mega-menu-content').css('display', '');
-			}
 
-			if( !$().superfish ) {
-				$body.addClass('no-superfish');
-				console.log('superfish: Superfish not Defined.');
-				return true;
-			}
-
-			$('body:not(.side-header) #primary-menu:not(.on-click) > ul, body:not(.side-header) #primary-menu:not(.on-click) > div > ul:not(.dropdown-menu), .top-links:not(.on-click) > ul').superfish({
-				popUpSelector: 'ul,.mega-menu-content,.top-link-section',
-				delay: 250,
-				speed: 350,
-				animation: {opacity:'show'},
-				animationOut:  {opacity:'hide'},
-				cssArrows: false,
-				onShow: function(){
-					var megaMenuContent = $(this);
-					if( megaMenuContent.find('.owl-carousel.customjs').length > 0 ) {
-						megaMenuContent.find('.owl-carousel').removeClass('customjs');
-						SEMICOLON.widget.carousel();
-					}
-					if( megaMenuContent.find('.grid-container').length > 0 ) {
-						megaMenuContent.find('.grid-container').isotope('layout');
-					}
+				if( !$().superfish ) {
+					$body.addClass('no-superfish');
+					console.log('superfish: Superfish not Defined.');
+					return true;
 				}
-			});
 
-			$('body.side-header #primary-menu:not(.on-click) > ul').superfish({
-				popUpSelector: 'ul',
-				delay: 250,
-				speed: 350,
-				animation: {opacity:'show',height:'show'},
-				animationOut:  {opacity:'hide',height:'hide'},
-				cssArrows: false
-			});
+				$('body:not(.side-header) #primary-menu:not(.on-click) > ul, body:not(.side-header) #primary-menu:not(.on-click) > div > ul:not(.dropdown-menu), .top-links:not(.on-click) > ul').superfish({
+					popUpSelector: 'ul,.mega-menu-content,.top-link-section',
+					delay: 250,
+					speed: 350,
+					animation: {opacity:'show'},
+					animationOut:  {opacity:'hide'},
+					cssArrows: false,
+					onShow: function(){
+						var megaMenuContent = $(this);
+						if( megaMenuContent.find('.owl-carousel.customjs').length > 0 ) {
+							megaMenuContent.find('.owl-carousel').removeClass('customjs');
+							SEMICOLON.widget.carousel();
+						}
+						if( megaMenuContent.find('.grid-container').length > 0 ) {
+							megaMenuContent.find('.grid-container').isotope('layout');
+						}
+					}
+				});
+
+				$('body.side-header #primary-menu:not(.on-click) > ul').superfish({
+					popUpSelector: 'ul',
+					delay: 250,
+					speed: 350,
+					animation: {opacity:'show',height:'show'},
+					animationOut:  {opacity:'hide',height:'hide'},
+					cssArrows: false
+				});
+			}
 
 		},
 
@@ -1080,43 +1057,11 @@ var SEMICOLON = SEMICOLON || {};
 				$('#primary-menu.sub-title').children('ul').children('.current').prev().css({ backgroundImage : 'none' });
 			}
 
-			$('#primary-menu.on-click li:has(ul) > a').on( 'click', function(e){
-				$(this).parents('.sub-menu').siblings().find('ul,.mega-menu-content').removeClass('d-block');
-				$(this).parent('li').children('ul,.mega-menu-content').toggleClass('d-block');
-				e.preventDefault();
-			});
-
-			// var responsiveThreshold = $header.attr('data-responsive-under');
-			// if( !responsiveThreshold ) { responsiveThreshold = 992; }
-
-			// if( windowWidth < Number( responsiveThreshold ) ) {
-			// 	$body.addClass('mobile-header-active');
-			// } else {
-			// 	$body.removeClass('mobile-header-active');
-			// }
-
-			if( SEMICOLON.isMobile.Android() ) {
-				$( '#primary-menu ul li.sub-menu' ).children('a').on('touchstart', function(e){
-					if( !$(this).parent('li.sub-menu').hasClass('sfHover') ) {
-						e.preventDefault();
-					}
-				});
-			}
-
-			if( SEMICOLON.isMobile.Windows() ) {
-				if( $().superfish ){
-					$('#primary-menu > ul, #primary-menu > div > ul,.top-links > ul').superfish('destroy').addClass('windows-mobile-menu');
-				} else {
-					$('#primary-menu > ul, #primary-menu > div > ul,.top-links > ul').addClass('windows-mobile-menu');
-					console.log('menufunctions: Superfish not defined.');
-				}
-
-				$( '#primary-menu ul li:has(ul)' ).append('<a href="#" class="wn-submenu-trigger"><i class="icon-angle-down"></i></a>');
-
-				$( '#primary-menu ul li.sub-menu' ).children('a.wn-submenu-trigger').off( 'click' ).on( 'click', function(e){
-					$(this).parent().toggleClass('open');
-					$(this).parent().find('> ul, > .mega-menu-content').stop(true,true).toggle();
-					return false;
+			if( $('#primary-menu').hasClass('on-click') || ( $body.hasClass('device-md') || $body.hasClass('device-sm') || $body.hasClass('device-xs') ) ) {
+				$('#primary-menu li:has(ul) > a').on( 'click touchend', function(e){
+					$(this).parents('.sub-menu').siblings().find('ul,.mega-menu-content').removeClass('d-block');
+					$(this).parent('li').children('ul,.mega-menu-content').toggleClass('d-block');
+					e.preventDefault();
 				});
 			}
 
@@ -1477,7 +1422,7 @@ var SEMICOLON = SEMICOLON || {};
 				$sliderParallaxEl.find('.slider-parallax-inner').css({ 'width': '', height: '' });
 			}
 
-			if( swiperSlider ) { swiperSlider.update(); }
+			if( swiperSlider != '' ) { swiperSlider.update(); }
 		},
 
 		sliderRun: function(){
@@ -1491,6 +1436,8 @@ var SEMICOLON = SEMICOLON || {};
 
 			$sliderEl.each( function(){
 				if( $(this).hasClass('swiper_wrapper') ) {
+
+					if( $(this).find('.swiper-slide').length < 1 ) { return true; }
 
 					var element = $(this).filter('.swiper_wrapper'),
 						elementDirection = element.attr('data-direction'),
@@ -2099,9 +2046,8 @@ var SEMICOLON = SEMICOLON || {};
 			SEMICOLON.widget.textRotater();
 			SEMICOLON.widget.carousel();
 			SEMICOLON.widget.linkScroll();
-			SEMICOLON.widget.contactForm();
+			SEMICOLON.widget.ajaxForm();
 			SEMICOLON.widget.subscription();
-			SEMICOLON.widget.quickContact();
 			SEMICOLON.widget.stickySidebar();
 			SEMICOLON.widget.cookieNotify();
 			SEMICOLON.widget.cartQuantity();
@@ -2558,9 +2504,6 @@ var SEMICOLON = SEMICOLON || {};
 					if( $body.hasClass('device-xl') || $body.hasClass('device-lg') ){
 						element.appear( function(){
 							SEMICOLON.widget.runCounter( element, counterElementComma );
-							if( element.parents('.common-height') ) {
-								SEMICOLON.initialize.maxHeight();
-							}
 						},{accX: 0, accY: -120},'easeInCubic');
 					} else {
 						SEMICOLON.widget.runCounter( element, counterElementComma );
@@ -3175,29 +3118,45 @@ var SEMICOLON = SEMICOLON || {};
 			});
 		},
 
-		contactForm: function(){
+		ajaxForm: function(){
 
 			if( !$().validate ) {
-				console.log('contactForm: Form Validate not Defined.');
+				console.log('ajaxForm: Form Validate not Defined.');
 				return true;
 			}
 
 			if( !$().ajaxSubmit ) {
-				console.log('contactForm: jQuery Form not Defined.');
+				console.log('ajaxForm: jQuery Form not Defined.');
 				return true;
 			}
 
-			var $contactForm = $('.contact-widget:not(.customjs)');
-			if( $contactForm.length < 1 ){ return true; }
+			var $ajaxForm = $('.form-widget:not(.customjs)');
+			if( $ajaxForm.length < 1 ){ return true; }
 
-			$contactForm.each( function(){
+			$ajaxForm.each( function(){
 				var element = $(this),
+					elementForm = element.find('form'),
+					elementFormId = elementForm.attr('id'),
 					elementAlert = element.attr('data-alert-type'),
 					elementLoader = element.attr('data-loader'),
-					elementResult = element.find('.contact-form-result'),
+					elementResult = element.find('.form-result'),
 					elementRedirect = element.attr('data-redirect');
 
+				if( !elementAlert ) { elementAlert = 'notify'; }
+
+				if( elementFormId ) {
+					$body.addClass( elementFormId + '-ready' );
+				}
+
 				element.find('form').validate({
+					errorPlacement: function(error, elementItem) {
+						if( elementItem.parents('.form-group').length > 0 ) {
+							error.appendTo( elementItem.parents('.form-group') );
+						} else {
+							error.insertAfter( elementItem );
+						}
+					},
+					focusCleanup: true,
 					submitHandler: function(form) {
 
 						elementResult.hide();
@@ -3211,6 +3170,10 @@ var SEMICOLON = SEMICOLON || {};
 							$(form).find('.form-process').fadeIn();
 						}
 
+						if( elementFormId ) {
+							$body.removeClass( elementFormId + '-ready ' + elementFormId + '-complete ' + elementFormId + '-success ' + elementFormId + '-error' ).addClass( elementFormId + '-processing' );
+						}
+
 						$(form).ajaxSubmit({
 							target: elementResult,
 							dataType: 'json',
@@ -3220,10 +3183,12 @@ var SEMICOLON = SEMICOLON || {};
 								} else {
 									$(form).find('.form-process').fadeOut();
 								}
+
 								if( data.alert != 'error' && elementRedirect ){
 									window.location.replace( elementRedirect );
 									return true;
 								}
+
 								if( elementAlert == 'inline' ) {
 									if( data.alert == 'error' ) {
 										var alertType = 'alert-danger';
@@ -3232,12 +3197,56 @@ var SEMICOLON = SEMICOLON || {};
 									}
 
 									elementResult.removeClass( 'alert-danger alert-success' ).addClass( 'alert ' + alertType ).html( data.message ).slideDown( 400 );
-								} else {
+								} else if( elementAlert == 'notify' ) {
 									elementResult.attr( 'data-notify-type', data.alert ).attr( 'data-notify-msg', data.message ).html('');
 									SEMICOLON.widget.notifications( elementResult );
 								}
+
+								if( data.alert != 'error' ) {
+									$(form).resetForm();
+									$(form).find('.btn-group > .btn').removeClass('active');
+
+									if( (typeof tinyMCE != 'undefined') && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden() ){
+										tinymce.activeEditor.setContent('');
+									}
+
+									var rangeSlider = $(form).find('.input-range-slider');
+									if( rangeSlider.length > 0 ) {
+										rangeSlider.each( function(){
+											var range = $(this).data('ionRangeSlider');
+											range.reset();
+										});
+									}
+
+									var ratings = $(form).find('.input-rating');
+									if( ratings.length > 0 ) {
+										ratings.each( function(){
+											$(this).rating('reset');
+										});
+									}
+
+									var selectPicker = $(form).find('.selectpicker');
+									if( selectPicker.length > 0 ) {
+										selectPicker.each( function(){
+											$(this).selectpicker('val', '');
+											$(this).selectpicker('deselectAll');
+										});
+									}
+
+									$(form).find('.input-select2,select[data-selectsplitter-firstselect-selector]').change();
+
+									$(form).trigger( 'formSubmitSuccess' );
+									$body.removeClass( elementFormId + '-error' ).addClass( elementFormId + '-success' );
+								} else {
+									$(form).trigger( 'formSubmitError' );
+									$body.removeClass( elementFormId + '-success' ).addClass( elementFormId + '-error' );
+								}
+
+								if( elementFormId ) {
+									$body.removeClass( elementFormId + '-processing' ).addClass( elementFormId + '-complete' );
+								}
+
 								if( $(form).find('.g-recaptcha').children('div').length > 0 ) { grecaptcha.reset(); }
-								if( data.alert != 'error' ) { $(form).clearForm(); }
 							}
 						});
 					}
@@ -3308,79 +3317,6 @@ var SEMICOLON = SEMICOLON || {};
 									elementResult.attr( 'data-notify-type', data.alert ).attr( 'data-notify-msg', data.message ).html('');
 									SEMICOLON.widget.notifications( elementResult );
 								}
-							}
-						});
-					}
-				});
-
-			});
-		},
-
-		quickContact: function(){
-
-			if( !$().validate ) {
-				console.log('quickContact: Form Validate not Defined.');
-				return true;
-			}
-
-			if( !$().ajaxSubmit ) {
-				console.log('quickContact: jQuery Form not Defined.');
-				return true;
-			}
-
-			var $quickContact = $('.quick-contact-widget:not(.customjs)');
-			if( $quickContact.length < 1 ){ return true; }
-
-			$quickContact.each( function(){
-				var element = $(this),
-					elementAlert = element.attr('data-alert-type'),
-					elementLoader = element.attr('data-loader'),
-					elementResult = element.find('.quick-contact-form-result'),
-					elementRedirect = element.attr('data-redirect');
-
-				element.find('form').validate({
-					submitHandler: function(form) {
-
-						elementResult.hide();
-						$(form).animate({ opacity: 0.4 });
-
-						if( elementLoader == 'button' ) {
-							var defButton = $(form).find('button'),
-								defButtonText = defButton.html();
-
-							defButton.html('<i class="icon-line-loader icon-spin nomargin"></i>');
-						} else {
-							$(form).find('.form-process').fadeIn();
-						}
-
-						$(form).ajaxSubmit({
-							target: elementResult,
-							dataType: 'json',
-							resetForm: true,
-							success: function( data ) {
-								$(form).animate({ opacity: 1 });
-								if( elementLoader == 'button' ) {
-									defButton.html( defButtonText );
-								} else {
-									$(form).find('.form-process').fadeOut();
-								}
-								if( data.alert != 'error' && elementRedirect ){
-									window.location.replace( elementRedirect );
-									return true;
-								}
-								if( elementAlert == 'inline' ) {
-									if( data.alert == 'error' ) {
-										var alertType = 'alert-danger';
-									} else {
-										var alertType = 'alert-success';
-									}
-
-									elementResult.addClass( 'alert ' + alertType ).html( data.message ).slideDown( 400 );
-								} else {
-									elementResult.attr( 'data-notify-type', data.alert ).attr( 'data-notify-msg', data.message ).html('');
-									SEMICOLON.widget.notifications( elementResult );
-								}
-								if( $(form).find('.g-recaptcha').children('div').length > 0 ) { grecaptcha.reset(); }
 							}
 						});
 					}
@@ -3618,7 +3554,6 @@ var SEMICOLON = SEMICOLON || {};
 				SEMICOLON.header.overlayMenu();
 				//SEMICOLON.initialize.fullScreen();
 				SEMICOLON.initialize.dataResponsiveHeights();
-				SEMICOLON.initialize.maxHeight();
 				SEMICOLON.initialize.verticalMiddle();
 				SEMICOLON.initialize.testimonialsGrid();
 				SEMICOLON.initialize.stickFooterOnSmall();
@@ -3728,7 +3663,6 @@ var SEMICOLON = SEMICOLON || {};
 			SEMICOLON.slider.captionPosition();
 			SEMICOLON.slider.swiperSliderMenu(true);
 			SEMICOLON.slider.revolutionSliderMenu(true);
-			SEMICOLON.initialize.maxHeight();
 			SEMICOLON.initialize.testimonialsGrid();
 			SEMICOLON.initialize.verticalMiddle();
 			SEMICOLON.initialize.stickFooterOnSmall();
@@ -3798,7 +3732,6 @@ var SEMICOLON = SEMICOLON || {};
 		$dotsMenuEl = $('.dots-menu'),
 		$goToTopEl = $('#gotoTop'),
 		$fullScreenEl = $('.full-screen'),
-		$commonHeightEl = $('.common-height'),
 		$testimonialsGridEl = $('.testimonials-grid'),
 		$pageSectionEl = $('.page-section'),
 		$owlCarouselEl = $('.owl-carousel'),

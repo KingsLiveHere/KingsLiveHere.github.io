@@ -70,3 +70,7 @@ only screen and (                min-resolution: 2dppx) {
 .dark #copyrights {
 	background-color: rgba(0,0,0,0);
 	}
+	
+	#primary-menu ul li:hover > a,
+#primary-menu ul li.current > a { color: #f5f5f5;
+}

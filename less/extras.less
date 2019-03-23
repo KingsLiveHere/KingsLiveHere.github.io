@@ -154,6 +154,7 @@ body:not(.no-transition) #wrapper,
 	animation-fill-mode: both;
 }
 
+.page-transition-wrap,
 .css3-spinner {
 	position: fixed;
 	width: 100%;
@@ -166,6 +167,12 @@ body:not(.no-transition) #wrapper,
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 	-webkit-perspective: 1000;
+}
+
+.css3-spinner {
+	position: absolute;
+	z-index: auto;
+	background-color: transparent;
 }
 
 .css3-spinner > div {

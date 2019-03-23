@@ -341,6 +341,19 @@ class PHPMailer
     public $Timeout = 300;
 
     /**
+     * Comma separated list of DSN notifications
+     * 'NEVER' under no circumstances a DSN must be returned to the sender.
+     *         If you use NEVER all other notifications will be ignored.
+     * 'SUCCESS' will notify you when your mail has arrived at its destination.
+     * 'FAILURE' will arrive if an error occurred during delivery.
+     * 'DELAY'   will notify you if there is an unusual delay in delivery, but the actual
+     *           delivery's outcome (success or failure) is not yet decided.
+     *
+     * @see https://tools.ietf.org/html/rfc3461 See section 4.1 for more information about NOTIFY
+     */
+    public $dsn = '';
+
+    /**
      * SMTP class debug output mode.
      * Debug output level.
      * Options:
@@ -701,7 +714,7 @@ class PHPMailer
      *
      * @var string
      */
-    const VERSION = '6.0.5';
+    const VERSION = '6.0.7';
 
     /**
      * Error severity: message only, continue processing.
@@ -1471,7 +1484,10 @@ class PHPMailer
             if (!empty($this->DKIM_domain)
                 and !empty($this->DKIM_selector)
                 and (!empty($this->DKIM_private_string)
-                    or (!empty($this->DKIM_private) and file_exists($this->DKIM_private))
+                    or (!empty($this->DKIM_private)
+                        and static::isPermittedPath($this->DKIM_private)
+                        and file_exists($this->DKIM_private)
+                    )
                 )
             ) {
                 $header_dkim = $this->DKIM_Add(
@@ -1649,6 +1665,20 @@ class PHPMailer
     }
 
     /**
+     * Check whether a file path is of a permitted type.
+     * Used to reject URLs and phar files from functions that access local file paths,
+     * such as addAttachment.
+     *
+     * @param string $path A relative or absolute path to a file
+     *
+     * @return bool
+     */
+    protected static function isPermittedPath($path)
+    {
+        return !preg_match('#^[a-z]+://#i', $path);
+    }
+
+    /**
      * Send mail using the PHP mail() function.
      *
      * @see    http://www.php.net/manual/en/book.mail.php
@@ -1772,7 +1802,7 @@ class PHPMailer
         // Attempt to send to all recipients
         foreach ([$this->to, $this->cc, $this->bcc] as $togroup) {
             foreach ($togroup as $to) {
-                if (!$this->smtp->recipient($to[0])) {
+                if (!$this->smtp->recipient($to[0], $this->dsn)) {
                     $error = $this->smtp->getError();
                     $bad_rcpt[] = ['to' => $to[0], 'error' => $error['detail']];
                     $isSent = false;
@@ -1995,7 +2025,8 @@ class PHPMailer
             'dk' => 'da',
             'no' => 'nb',
             'se' => 'sv',
-            'sr' => 'rs',
+            'rs' => 'sr',
+            'tg' => 'tl',
         ];
 
         if (isset($renamed_langcodes[$langcode])) {
@@ -2037,7 +2068,7 @@ class PHPMailer
         // There is no English translation file
         if ('en' != $langcode) {
             // Make sure language file path is readable
-            if (!file_exists($lang_file)) {
+            if (!static::isPermittedPath($lang_file) || !file_exists($lang_file)) {
                 $foundlang = false;
             } else {
                 // Overwrite language-specific strings.
@@ -2121,7 +2152,7 @@ class PHPMailer
         }
         // If utf-8 encoding is used, we will need to make sure we don't
         // split multibyte characters when we wrap
-        $is_utf8 = 'utf-8' == strtolower($this->CharSet);
+        $is_utf8 = static::CHARSET_UTF8 === strtolower($this->CharSet);
         $lelen = strlen(static::$LE);
         $crlflen = strlen(static::$LE);
 
@@ -2628,12 +2659,10 @@ class PHPMailer
                 if (!defined('PKCS7_TEXT')) {
                     throw new Exception($this->lang('extension_missing') . 'openssl');
                 }
-                // @TODO would be nice to use php://temp streams here
-                $file = tempnam(sys_get_temp_dir(), 'mail');
-                if (false === file_put_contents($file, $body)) {
-                    throw new Exception($this->lang('signing') . ' Could not write temp file');
-                }
-                $signed = tempnam(sys_get_temp_dir(), 'signed');
+                $file = fopen('php://temp', 'rb+');
+                $signed = fopen('php://temp', 'rb+');
+                fwrite($file, $body);
+
                 //Workaround for PHP bug https://bugs.php.net/bug.php?id=69197
                 if (empty($this->sign_extracerts_file)) {
                     $sign = @openssl_pkcs7_sign(
@@ -2654,16 +2683,16 @@ class PHPMailer
                         $this->sign_extracerts_file
                     );
                 }
-                @unlink($file);
+                fclose($file);
                 if ($sign) {
                     $body = file_get_contents($signed);
-                    @unlink($signed);
+                    fclose($signed);
                     //The message returned by openssl contains both headers and body, so need to split them up
                     $parts = explode("\n\n", $body, 2);
                     $this->MIMEHeader .= $parts[0] . static::$LE . static::$LE;
                     $body = $parts[1];
                 } else {
-                    @unlink($signed);
+                    fclose($signed);
                     throw new Exception($this->lang('signing') . openssl_error_string());
                 }
             } catch (Exception $exc) {
@@ -2775,6 +2804,8 @@ class PHPMailer
      * Add an attachment from a path on the filesystem.
      * Never use a user-supplied path to a file!
      * Returns false if the file could not be found or read.
+     * Explicitly *does not* support passing URLs; PHPMailer is not an HTTP client.
+     * If you need to do that, fetch the resource yourself and pass it in via a local file or string.
      *
      * @param string $path        Path to the attachment
      * @param string $name        Overrides the attachment name
@@ -2789,7 +2820,7 @@ class PHPMailer
     public function addAttachment($path, $name = '', $encoding = self::ENCODING_BASE64, $type = '', $disposition = 'attachment')
     {
         try {
-            if (!@is_file($path)) {
+            if (!static::isPermittedPath($path) || !@is_file($path)) {
                 throw new Exception($this->lang('file_access') . $path, self::STOP_CONTINUE);
             }
 
@@ -2971,7 +3002,7 @@ class PHPMailer
     protected function encodeFile($path, $encoding = self::ENCODING_BASE64)
     {
         try {
-            if (!file_exists($path)) {
+            if (!static::isPermittedPath($path) || !file_exists($path)) {
                 throw new Exception($this->lang('file_open') . $path, self::STOP_CONTINUE);
             }
             $file_buffer = file_get_contents($path);
@@ -3312,7 +3343,7 @@ class PHPMailer
      */
     public function addEmbeddedImage($path, $cid, $name = '', $encoding = self::ENCODING_BASE64, $type = '', $disposition = 'inline')
     {
-        if (!@is_file($path)) {
+        if (!static::isPermittedPath($path) || !@is_file($path)) {
             $this->setError($this->lang('file_access') . $path);
 
             return false;
@@ -3628,7 +3659,7 @@ class PHPMailer
             //Is it a valid IPv4 address?
             return (bool) filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
         }
-        if (filter_var('http://' . $host, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED)) {
+        if (filter_var('http://' . $host, FILTER_VALIDATE_URL)) {
             //Is it a syntactically valid hostname?
             return true;
         }

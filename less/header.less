@@ -254,6 +254,22 @@ body.no-superfish #primary-menu li:hover > .mega-menu-content { display: block; 
 	margin: 0;
 }
 
+#primary-menu ul li .mega-menu-content {
+	display: -ms-flex;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+}
+
+#primary-menu.on-click ul li .mega-menu-content { display: none; }
+
+#primary-menu.on-click ul li .mega-menu-content.d-block {
+	display: -ms-flex !important;
+	display: flex !important;
+}
+
 #primary-menu ul ul:not(.mega-menu-column) ul {
 	top: -2px !important;
 	left: @primary-menu-submenu-width - 2;

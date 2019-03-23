@@ -238,7 +238,7 @@ body {
 /* Widget - Quick Contact Form
 -----------------------------------------------------------------*/
 
-.quick-contact-widget {
+.quick-contact-widget.form-widget {
 	.form-control,
 	.input-group,
 	.sm-form-control {
@@ -251,7 +251,7 @@ body {
 	}
 }
 
-.quick-contact-widget form,
+.quick-contact-widget.form-widget form,
 #template-contactform {
 	position: relative;
 }

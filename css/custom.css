@@ -59,14 +59,7 @@ only screen and (                min-resolution: 2dppx) {
 	}
 }
 
-
-
-	#copyrights {
-	background-color: rgba(0,0,0,0);
-	padding: 0px 0;
-	}
-
-	#primary-menu ul li:hover > a,
+#primary-menu ul li:hover > a,
 #primary-menu ul li.current > a { color: #f5f5f5;
 }
 
@@ -74,4 +67,18 @@ only screen and (                min-resolution: 2dppx) {
 background-color: rgb(229, 227, 223) !important;
 padding-top: 100px;
 padding-bottom: 100px;
+}
+
+
+.footer-widgets-wrap a {
+color: rgba(255,255,255,0.25) !important;
+}
+
+
+@media (min-width: 767.99px) {
+.cpymain {
+	background-color: rgba(0,0,0,0) !important;
+	padding: 0px 0 !important;
+	color: rgba(255,255,255,0.25) !important;
+	}
 }

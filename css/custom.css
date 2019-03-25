@@ -22,7 +22,6 @@ MY CSS
         top: -100px;
         margin-bottom: -300px;
     }
-}
 
 /*.dark .slider-caption, .dark .slider-caption h2 {
 padding-top: 30px !important;
@@ -49,7 +48,6 @@ only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
 
 	#logo a.retina-logo { 
-		display: block;
 		width: 270px;
 		padding: 13px;	
 	}
@@ -61,6 +59,10 @@ only screen and (                min-resolution: 2dppx) {
 
 #primary-menu ul li:hover > a,
 #primary-menu ul li.current > a { color: #f5f5f5;
+}
+
+.mobile-menu-off-canvas {
+width:115 px !important;
 }
 
 .bgcolor {

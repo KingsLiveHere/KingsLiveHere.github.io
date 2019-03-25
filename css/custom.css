@@ -76,11 +76,14 @@ padding-bottom: 100px;
 color: rgba(255,255,255,0.25) !important;
 }
 
+.cpymain {
+	background-color: rgba(0,0,0,0) !important;
+	}
 
 @media (min-width: 767.99px) {
 .cpymain {
-	background-color: rgba(0,0,0,0) !important;
 	padding: 0px 0 !important;
 	color: rgba(255,255,255,0.25) !important;
 	}
 }
+

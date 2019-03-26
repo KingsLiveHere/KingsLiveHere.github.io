@@ -1,8 +1,7 @@
 /* ----------------------------------------------------------------
-	Custom CSS
+	Custom2 CSS
 
-	Add all your Custom Styled CSS here for New Styles or
-	Overwriting Default Theme Styles for Better Hanlding Updates
+	2nd copy of custom for stick header issue.
 -----------------------------------------------------------------*/
 
 /* ----------------------------------------------------------------
@@ -37,24 +36,6 @@ padding-top: 30px !important;
     background-repeat: no-repeat !important;
     background-position: center center;
     background-size: cover;
-}
-
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 2),
-only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) {
-
-	#logo a.retina-logo { 
-		width: 270px;
-		padding: 13px;	
-	}
-
-	#logo img {
-	Height: 75px;
-	}
 }
 
 #primary-menu ul li:hover > a,

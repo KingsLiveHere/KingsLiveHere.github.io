@@ -8,20 +8,6 @@
 MY CSS
 -----------------------------------------------------------------*/
 
-#header.full-header #primary-menu > ul {
-	border-right: 0px;
-}
-#header.full-header #logo {
-	border-right: 0px;
-}
-
-#header.transparent-header.full-header #header-wrap { border-bottom: 0px; }
-
-#header.transparent-header + #slider {
-        top: -100px;
-        margin-bottom: -300px;
-    }
-
 /*.dark .slider-caption, .dark .slider-caption h2 {
 padding-top: 30px !important;
 }*/
@@ -66,10 +52,42 @@ color: rgba(255,255,255,0.25) !important;
 	padding: 0px 0 !important;
 	color: rgba(255,255,255,0.25) !important;
 	}
+	
+#logo a.retina-logo {
+    margin: -3px;
+    }
+    
+#header:not(.sticky-header) #logo img { 
+	height: auto; 
+    width: 80%;
+    padding: 15px;
+}
+
+#header.full-header #primary-menu > ul {
+	border-right: 0px;
+}
+#header.full-header #logo {
+	border-right: 0px;
+}
+
+#header.transparent-header.full-header #header-wrap { border-bottom: 0px; }
+
+#header.transparent-header + #slider {
+        top: -100px;
+        margin-bottom: -300px;
+    }    
+    
+    
 }
 
 
 @media (max-width: 767px) {
+
+#logo img {
+    padding: 17px;
+}
+
+
     #copyrights .col_half:last-child {
         display: block;
         margin-top: 30px;
@@ -84,3 +102,5 @@ color: rgba(255,255,255,0.25) !important;
         display: inline-block !important;
     }
 }
+
+

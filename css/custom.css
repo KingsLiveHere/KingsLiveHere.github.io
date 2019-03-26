@@ -87,7 +87,7 @@ color: rgba(255,255,255,0.25) !important;
 	}
 }
 
-
+/*
 @media (max-width: 767px) {
     #copyrights .col_half:last-child {
         display: block;

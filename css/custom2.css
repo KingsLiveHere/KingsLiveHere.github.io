@@ -101,6 +101,11 @@ color: rgba(255,255,255,0.25) !important;
         float: none !important;
         display: inline-block !important;
     }
+    
+.dark .form-control:not(.not-dark), .dark .sm-form-control:not(.not-dark) {
+color: #fff;
+}
+    
 }
 
 

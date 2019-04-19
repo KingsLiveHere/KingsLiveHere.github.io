@@ -743,7 +743,7 @@ opacity:1
 
 .erinyen .tp-thumb.selected .tp-thumb-over,
 .erinyen .tp-thumb:hover .tp-thumb-over {
- background:#fff;
+ background:rgba(255,255,255, 0.5);
 }
 .erinyen .tp-thumb.selected .tp-thumb-title,
 .erinyen .tp-thumb:hover .tp-thumb-title {

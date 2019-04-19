@@ -2040,7 +2040,7 @@ var SEMICOLON = SEMICOLON || {};
 			SEMICOLON.widget.progress();
 			SEMICOLON.widget.twitterFeed();
 			SEMICOLON.widget.flickrFeed();
-			SEMICOLON.widget.instagramPhotos( '5834720953.1677ed0.a0a26ba4c90845f9a844d64c316bf77a', '8e000fefe3024b2ead6a50ff005bf036' );
+			SEMICOLON.widget.instagramPhotos( '30818384.31583cd.cf0c6e1c84fb4dc6af4ba7634400f9f3', '31583cdc6d5a4f7299e35b83b7cff8a9' );
 			SEMICOLON.widget.dribbbleShots( '012d3d72d12f93e1d41a19195d7da2fc87e6b5afa48a184256e398eb793cfe56' );
 			SEMICOLON.widget.navTree();
 			SEMICOLON.widget.textRotater();

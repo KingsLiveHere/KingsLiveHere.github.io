@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test page</title>
+    <script src=instashow/elfsight-instagram-feed.js></script>
+	<!-- CSS -->
+</head>
+<body>
+
+<div class="my-instashow"></div>
+
+<script>
+    document.addEventListener('appReady.EappsInstagramFeed', function() {  
+        $('.my-instashow').eappsInstagramFeed({
+            access-token: '30818384.31583cd.cf0c6e1c84fb4dc6af4ba7634400f9f3',
+            source: '@jomorswift',
+            width: 'auto',
+            layout: 'grid',
+            columns: 5,
+            rows: 3,
+            lang: 'en'
+        });
+    });
+</script>
+
+</body>
+</html>

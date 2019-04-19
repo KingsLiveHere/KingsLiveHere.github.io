@@ -562,18 +562,17 @@
 	</script>
 	
 <script>
-    document.addEventListener('appReady.EappsInstagramFeed', function() {  
-        $('.my-instashow').eappsInstagramFeed({
-            token: '30818384.31583cd.cf0c6e1c84fb4dc6af4ba7634400f9f3',
-            source: '@jomorswift',
-            width: 'auto',
-            layout: 'grid',
-            columns: 5,
-            rows: 3,
-            lang: 'en'
+        document.addEventListener('appReady.EappsInstagramFeed', function() {  
+            jQuery('.my-instashow').eappsInstagramFeed({
+                accessToken: '30818384.31583cd.cf0c6e1c84fb4dc6af4ba7634400f9f3',
+                width: '500px',
+                layout: 'grid',
+                columns: 5,
+                rows: 3,
+                lang: 'en'
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>

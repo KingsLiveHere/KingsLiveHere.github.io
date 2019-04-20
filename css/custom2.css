@@ -495,3 +495,8 @@ padding: 0px 0;
 	background-attachment: fixed !important;
 	box-shadow: inset 0 5px 10px 0px rgba(0, 0, 0, 0.8), 0 9px 19px 0 rgba(0, 0, 0, 0.39) !important;
 	}
+
+
+.igwrap {
+	padding: 70px 0px 0px 0px !important;
+}

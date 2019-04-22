@@ -6,7 +6,7 @@
 -----------------------------------------------------------------*/
 
 /* ----------------------------------------------------------------
-MY CSS
+CSS for Homepage
 -----------------------------------------------------------------*/
 
 #header.full-header #primary-menu > ul {
@@ -58,28 +58,25 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 #primary-menu ul li:hover > a,
-#primary-menu ul li.current > a { color: #f5f5f5;
-}
-
-.mobile-menu-off-canvas {
-width:115 px !important;
+#primary-menu ul li.current > a { 
+    color: #f5f5f5;
 }
 
 .bgcolor {
-background-color: rgb(229, 227, 223) !important;
-padding-top: 100px;
-padding-bottom: 100px;
+    background-color: rgb(229, 227, 223) !important;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 
 .footer-widgets-wrap a {
-color: rgba(255,255,255,0.25) !important;
+    color: rgba(255,255,255,0.25) !important;
 }
 
 .cpymain {
     background-color: rgba(0,0,0,0) !important;
     padding: 0px 0 !important;
-	}
+}
 
 /*
 @media (max-width: 767px) {
@@ -122,14 +119,15 @@ color: rgba(255,255,255,0.25) !important;
 
 @media (max-width: 767.99px) {
     #copyrights {
-    margin-top: 130px !important;
+        margin-top: 130px !important;
     }
     #copyrights .col_half:last-child {
-    width: 100%;
-    display: block;
-    position: relative;
+        width: 100%;
+        display: block;
+        position: relative;
     }
-    .begone {display: none !important;
+    .begone {
+        display: none !important;
     }
     .cellsocial{
         display: grid;
@@ -137,7 +135,50 @@ color: rgba(255,255,255,0.25) !important;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .social-icon {
-    margin-left: auto !important;
-    margin-right: auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
+}
+
+@media (min-width: 768px) {
+    #logo {
+        z-index: 100;
     }
+}
+
+@media (max-width: 991.98px) {
+    .dark #primary-menu.mobile-menu-off-canvas:not(.not-dark) > ul, .dark #primary-menu.mobile-menu-off-canvas:not(.not-dark) > div > ul, #primary-menu.mobile-menu-off-canvas.dark > ul, #primary-menu.mobile-menu-off-canvas.dark > div > ul {
+        background-color: rgba(51, 51, 51, 0);
+        padding-top: 70px !important;
+        border: none;
+    }
+    #primary-menu-trigger {
+        z-index: 10000;
+    }
+    body:not(.sticky-responsive-menu) #primary-menu.mobile-menu-off-canvas > ul,
+    body:not(.sticky-responsive-menu) #primary-menu.mobile-menu-off-canvas > div > ul {
+        position: fixed;
+        display: block;
+        z-index: 499;
+        width: 150px;
+        height: 100%;
+        -webkit-transform: translate3d(-150px,0,0);
+        -o-transform: translate3d(-150px,0,0);
+        transform: translate3d(-150px,0,0);
+    }
+
+    body:not(.sticky-responsive-menu) #primary-menu.mobile-menu-off-canvas.from-right > ul,
+    body:not(.sticky-responsive-menu) #primary-menu.mobile-menu-off-canvas.from-right > div > ul {
+        -webkit-transform: translate3d(150px,0,0);
+        -o-transform: translate3d(150px,0,0);
+        transform: translate3d(150px,0,0);
+    }
+   
+    #header.full-header #primary-menu > ul {
+        border-right: 0px !important;
+    }
+}
+
+.notop {
+    top: 0 !important;
+}

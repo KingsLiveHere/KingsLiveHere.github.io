@@ -1,11 +1,9 @@
 /* ----------------------------------------------------------------
 	Custom2 CSS
-
-	2nd copy of custom for stick header issue.
 -----------------------------------------------------------------*/
 
 /* ----------------------------------------------------------------
-MY CSS
+Media CSS
 -----------------------------------------------------------------*/
 
 /*.dark .slider-caption, .dark .slider-caption h2 {
@@ -311,7 +309,7 @@ padding: 5px;
 		}
 	.begone {display: none !important;
 		}
-		.cellsocial{
+	.cellsocial{
 			display: grid;
 			float: none !important;
 			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

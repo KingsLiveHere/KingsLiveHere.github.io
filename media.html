@@ -330,6 +330,19 @@
 
 				<div class="widget clearfix">
 
+						<script>
+								document.addEventListener('appReady.EappsInstagramFeed', function() {  
+									jQuery('.my-instashow').eappsInstagramFeed({
+										accessToken: '30818384.31583cd.cf0c6e1c84fb4dc6af4ba7634400f9f3',
+										width: '100%',
+										layout: 'grid',
+										columns: 5,
+										rows: 3,
+										lang: 'en'
+									});
+								});
+							</script>
+
 						<div class="my-instashow"></div>
 				</div>
 
@@ -555,19 +568,6 @@
 			}
 		});	/*ready*/
 	</script>
-	
-	<script>
-			document.addEventListener('appReady.EappsInstagramFeed', function() {  
-				jQuery('.my-instashow').eappsInstagramFeed({
-					accessToken: '30818384.31583cd.cf0c6e1c84fb4dc6af4ba7634400f9f3',
-					width: '100%',
-					layout: 'grid',
-					columns: 5,
-					rows: 3,
-					lang: 'en'
-				});
-			});
-		</script>
 
 </body>
 </html>
